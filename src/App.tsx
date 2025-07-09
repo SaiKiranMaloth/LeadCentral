@@ -91,15 +91,6 @@ function App() {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
-        return (
-          <div className="p-6">
-            <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Dashboard Overview</h3>
-              <p className="text-gray-600">Comprehensive analytics and insights coming soon...</p>
-            </div>
-          </div>
-        );
       case 'leads':
         return (
           <LeadsTable
@@ -110,38 +101,16 @@ function App() {
         );
       case 'appointments':
         return (
-          <div className="p-6">
-            <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Appointment Management</h3>
-              <p className="text-gray-600">Schedule and manage client appointments...</p>
-            </div>
+          <div className="bg-white p-8 text-center">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Appointment Log</h3>
+            <p className="text-gray-600">Coming soon...</p>
           </div>
         );
       case 'users':
         return (
-          <div className="p-6">
-            <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Team Management</h3>
-              <p className="text-gray-600">Manage your real estate team members...</p>
-            </div>
-          </div>
-        );
-      case 'analytics':
-        return (
-          <div className="p-6">
-            <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Analytics & Reports</h3>
-              <p className="text-gray-600">Detailed performance analytics and insights...</p>
-            </div>
-          </div>
-        );
-      case 'reports':
-        return (
-          <div className="p-6">
-            <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Custom Reports</h3>
-              <p className="text-gray-600">Generate custom reports and exports...</p>
-            </div>
+          <div className="bg-white p-8 text-center">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Users</h3>
+            <p className="text-gray-600">Coming soon...</p>
           </div>
         );
       default:
