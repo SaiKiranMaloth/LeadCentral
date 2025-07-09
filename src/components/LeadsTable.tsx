@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, Phone, Mail, MessageCircle, Filter, Plus, Settings } from 'lucide-react';
+import { ColumnPreferencesModal } from './ColumnPreferencesModal';
 
 interface Lead {
   id: string;
@@ -20,6 +21,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, searchQuery, onAd
   const [sortColumn, setSortColumn] = useState<keyof Lead>('name');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [typeFilter, setTypeFilter] = useState<'all' | 'Buyer' | 'Seller'>('all');
+  const [isColumnModalOpen, setIsColumnModalOpen] = useState(false);
 
   const filteredLeads = leads.filter(lead => {
     const matchesSearch = lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -74,7 +76,10 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, searchQuery, onAd
         </div>
         
         <div className="flex items-center space-x-2">
-          <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+          <button 
+            onClick={() => setIsColumnModalOpen(true)}
+            className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+          >
             <Settings className="w-5 h-5" />
           </button>
           <button
@@ -162,6 +167,15 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, searchQuery, onAd
           </tbody>
         </table>
       </div>
+      
+      <ColumnPreferencesModal
+        isOpen={isColumnModalOpen}
+        onClose={() => setIsColumnModalOpen(false)}
+        onSave={(columns) => {
+          // Handle column preferences save
+          console.log('Saved columns:', columns);
+        }}
+      />
     </div>
   );
 };
