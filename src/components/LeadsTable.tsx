@@ -8,7 +8,7 @@ interface Lead {
   phone: string;
   email: string;
   address: string;
-  type: 'Buyer' | 'Seller';
+  type: 'Buyer' | 'Seller' | 'Buyer/Seller';
   category?: string;
   agent?: string;
   source?: string;
@@ -33,7 +33,7 @@ interface LeadsTableProps {
 export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, searchQuery, onAddLead }) => {
   const [sortColumn, setSortColumn] = useState<keyof Lead>('name');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
-  const [typeFilter, setTypeFilter] = useState<'all' | 'Buyer' | 'Seller'>('all');
+  const [typeFilter, setTypeFilter] = useState<'all' | 'Buyer' | 'Seller' | 'Buyer/Seller'>('all');
   const [isColumnModalOpen, setIsColumnModalOpen] = useState(false);
   const [selectedLeads, setSelectedLeads] = useState<string[]>([]);
 
@@ -121,8 +121,10 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, searchQuery, onAd
         return (
           <span className={`inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full ${
             lead.type === 'Buyer' 
-              ? 'bg-green-100 text-green-800 border border-green-200' 
-              : 'bg-blue-100 text-blue-800 border border-blue-200'
+              ? 'bg-green-100 text-green-800 border border-green-200'
+              : lead.type === 'Seller'
+              ? 'bg-blue-100 text-blue-800 border border-blue-200'
+              : 'bg-gradient-to-r from-green-100 to-blue-100 text-purple-800 border border-purple-200'
           }`}>
             {lead.type}
           </span>
@@ -164,9 +166,9 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, searchQuery, onAd
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
           { label: 'Total Leads', value: leads.length, color: 'text-blue-600', bg: 'bg-blue-50' },
-          { label: 'Buyers', value: leads.filter(l => l.type === 'Buyer').length, color: 'text-green-600', bg: 'bg-green-50' },
-          { label: 'Sellers', value: leads.filter(l => l.type === 'Seller').length, color: 'text-purple-600', bg: 'bg-purple-50' },
-          { label: 'Active', value: Math.floor(leads.length * 0.7), color: 'text-orange-600', bg: 'bg-orange-50' }
+          { label: 'Buyers', value: leads.filter(l => l.type === 'Buyer' || l.type === 'Buyer/Seller').length, color: 'text-green-600', bg: 'bg-green-50' },
+          { label: 'Sellers', value: leads.filter(l => l.type === 'Seller' || l.type === 'Buyer/Seller').length, color: 'text-purple-600', bg: 'bg-purple-50' },
+          { label: 'Buyer/Seller', value: leads.filter(l => l.type === 'Buyer/Seller').length, color: 'text-orange-600', bg: 'bg-orange-50' }
         ].map((stat, index) => (
           <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
@@ -192,12 +194,13 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ leads, searchQuery, onAd
               <Filter className="w-4 h-4 text-gray-500" />
               <select
                 value={typeFilter}
-                onChange={(e) => setTypeFilter(e.target.value as 'all' | 'Buyer' | 'Seller')}
+                onChange={(e) => setTypeFilter(e.target.value as 'all' | 'Buyer' | 'Seller' | 'Buyer/Seller')}
                 className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white"
               >
                 <option value="all">All Types</option>
                 <option value="Buyer">Buyers Only</option>
                 <option value="Seller">Sellers Only</option>
+                <option value="Buyer/Seller">Buyer/Seller Only</option>
               </select>
             </div>
             {selectedLeads.length > 0 && (

@@ -13,7 +13,7 @@ export const AddLeadModal: React.FC<AddLeadModalProps> = ({ isOpen, onClose, onA
     phone: '',
     email: '',
     address: '',
-    type: 'Buyer' as 'Buyer' | 'Seller'
+    type: 'Buyer' as 'Buyer' | 'Seller' | 'Buyer/Seller'
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -109,11 +109,12 @@ export const AddLeadModal: React.FC<AddLeadModalProps> = ({ isOpen, onClose, onA
             </label>
             <select
               value={formData.type}
-              onChange={(e) => setFormData({ ...formData, type: e.target.value as 'Buyer' | 'Seller' })}
+              onChange={(e) => setFormData({ ...formData, type: e.target.value as 'Buyer' | 'Seller' | 'Buyer/Seller' })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
             >
               <option value="Buyer">Buyer</option>
               <option value="Seller">Seller</option>
+              <option value="Buyer/Seller">Buyer/Seller</option>
             </select>
           </div>
 

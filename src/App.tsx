@@ -11,7 +11,7 @@ const initialLeads = [
     phone: '(784) 415-9221',
     email: 'vkk@gmail.com',
     address: 'North Bethesda, Maryland, 23323',
-    type: 'Seller' as const
+    type: 'Buyer/Seller' as const
   },
   {
     id: '2',
@@ -76,6 +76,22 @@ const initialLeads = [
     email: 'raineyhill@comcast.net',
     address: '272 Mountain Ave, New Providence...',
     type: 'Seller' as const
+  },
+  {
+    id: '10',
+    name: 'Michael Rodriguez',
+    phone: '(555) 123-4567',
+    email: 'mrodriguez@email.com',
+    address: 'Princeton, NJ, 08540',
+    type: 'Buyer/Seller' as const
+  },
+  {
+    id: '11',
+    name: 'Sarah Johnson',
+    phone: '(555) 987-6543',
+    email: 'sarah.johnson@gmail.com',
+    address: 'Hoboken, NJ, 07030',
+    type: 'Buyer/Seller' as const
   }
 ];
 
@@ -84,6 +100,10 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [leads, setLeads] = useState(initialLeads);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  
+  const buyerCount = leads.filter(l => l.type === 'Buyer' || l.type === 'Buyer/Seller').length;
+  const sellerCount = leads.filter(l => l.type === 'Seller' || l.type === 'Buyer/Seller').length;
+  const buyerSellerCount = leads.filter(l => l.type === 'Buyer/Seller').length;
 
   const handleAddLead = (newLead: any) => {
     setLeads([...leads, newLead]);
